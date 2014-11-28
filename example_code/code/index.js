@@ -7,6 +7,7 @@ $(document).on('pageinit', function() {
 	
 	//change time box to show message
 	$('#time').val("Press the button to get location data");
+	$('#clearGraphicLocation').on('click',stop);
 	
 	
 });
@@ -14,13 +15,13 @@ $(document).on('pageinit', function() {
 
 //Call this function when you want to get the current position
 function getPosition() {
-	console.log("hit the function");
+	
 	//change time box to show updated message
 	$('#time').val("Getting data...");
 	
 	//instruct location service to get position with appropriate callbacks
 	//navigator.geolocation.getCurrentPosition(successPosition, failPosition);
-	 navigator.geolocation.watchPosition(successPosition, failPosition,geolocationOptions);
+	watchID = navigator.geolocation.watchPosition(successPosition, failPosition,geolocationOptions);
 }
 
 
@@ -57,6 +58,12 @@ var geolocationOptions = {
  enableHighAccuracy: true
 };
 
+function stop (){
+console.log ("hit the stop function");
+
+navigator.geolocation.clearWatch(watchID);
 
 
-$('clearGraphicLocation').on('click',navigator.geolocation.clearWatch(watchID));
+
+}
+
